@@ -30,3 +30,11 @@
     margin: 0 10px;
   }
   
+  .input {
+  width: 50px;
+  text-align: center;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 4px;
+}

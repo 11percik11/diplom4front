@@ -1,52 +1,72 @@
-// export type User = {
-//   id: string;
-//   password: string;
-//   email: string;
-//   name: string;
-//   createdAt: Date;
-//   updatedAt: Date;
-// };
-
+export type UserRole = 'ADMIN' | 'MANAGER' | 'CLIENT';
 
 export type User = {
   id: string;
   password: string;
   email: string;
   name: string;
-  phone: string;
+  phone?: string;
   role: UserRole;
   avatarUrl?: string;
-
   refreshToken: string;
   isActivated: boolean;
   activatedLink: string;
-  
+
   createdAt: Date;
   updatedAt: Date;
+
   products: Product[];
   likes: Like[];
   comments: Comment[];
   chats: Chat[];
   userChats: UserChat[];
   messages: Message[];
-  cart?: Cart; // Optional, as a user might not have a cart
+  cart?: Cart;
+  orders: Order[];
+  purchasedProducts: string[]; // массив ID товаров
 };
 
-export type UserRole = 'ADMIN' | 'MANAGER' | 'CLIENT';
+export type ProductImage = {
+  id: string;
+  url: string;
+  productId: string;
+};
+
+export type SizeEntry = {
+  size: string;
+  quantity: number;
+};
+
+export type ProductVariant = {
+  id: string;
+  color: string;
+  productId: string;
+  images: ProductImage[];
+  sizes: SizeEntry[];
+};
 
 export type Product = {
   id: string;
   title: string;
   description: string;
   price: number;
-  avatarUrl?: string;
-  likes: Like[];
-  comments: Comment[];
+
+  createdAt: Date;
   userId: string;
   user: User;
+
+  sex: string;
+  model: string;
+  age: string;
+
+  variants: ProductVariant[]; // ✅ теперь список вариантов
+  likes: Like[];
+  comments: Comment[];
   cartItems: CartItem[];
-  createdAt: Date;
+  orderItems: OrderItem[];
 };
+
+
 
 export type Comment = {
   id: string;
@@ -55,6 +75,7 @@ export type Comment = {
   user: User;
   productId: string;
   product: Product;
+  visible: boolean;
 };
 
 export type Like = {
@@ -63,6 +84,7 @@ export type Like = {
   user: User;
   productId: string;
   product: Product;
+  rating: number;
 };
 
 export type Chat = {
@@ -71,8 +93,8 @@ export type Chat = {
   messages: Message[];
   createdAt: Date;
   updatedAt: Date;
-  userId?: string; // Optional, as not all chats may be associated with a specific user
-  user?: User; // Optional, as not all chats may be associated with a specific user
+  userId?: string;
+  user?: User;
 };
 
 export type UserChat = {
@@ -109,7 +131,37 @@ export type CartItem = {
   cart: Cart;
   productId: string;
   product: Product;
+
+  variantId: string;
+  variant: ProductVariant;
+
   quantity: number;
+  size: string;
+
   createdAt: Date;
   updatedAt: Date;
+};
+
+export type Order = {
+  id: string;
+  userId: string;
+  user: User;
+  items: OrderItem[];
+  totalPrice: number;
+  status: string; // pending | shipped | delivered
+    deliveryAddress?: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+export type OrderItem = {
+  id: string;
+  orderId: string;
+  order: Order;
+  productId: string;
+  product: Product;
+  variantId: string;
+  variant: ProductVariant; 
+  quantity: number;
+  size: string;
 };

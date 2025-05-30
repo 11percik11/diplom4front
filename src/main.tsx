@@ -15,18 +15,13 @@ import Profile from "./components/profile"
 import Admin from "./components/Admin/Admin"
 import AdminPanel from "./components/AdminPanel/AdminPanel"
 import EmailConfirmationPage from "./components/Activeted/Activated"
+import VisableComment from "./components/VisableComment/VisableComment"
+import PaymentComplete from "./components/PaymentComplete/PaymentComplete"
+import OrdersPage from "./components/OrdersPage/OrdersPage"
 
 const container = document.getElementById("root")!
 const root = createRoot(container)
 const router = createBrowserRouter([
-  {
-    path: "/auther",
-    element: <LoginForm />,
-  },
-  {
-    path: "/register",
-    element: <Register />,
-  },
   {
     path: "/",
     element: <Layout />,
@@ -59,14 +54,35 @@ const router = createBrowserRouter([
         path: "/adminpanel",
         element: <AdminPanel />,
       },
+      {
+        path: "/commentvisable",
+        element: <VisableComment />,
+      },
+      {
+        path: "/orders",
+        element: <OrdersPage />,
+      },
+      {
+        path: "/auther",
+        element: <LoginForm />,
+      },
+      {
+        path: "/register",
+        element: <Register />,
+      },
     ],
   },
   {
     path: "/admin",
     element: <Admin />,
-  },{
+  },
+  {
     path: "/active/:id",
     element: <EmailConfirmationPage />,
+  },
+  {
+    path: "/payment-complete",
+    element: <PaymentComplete />,
   },
 ])
 root.render(

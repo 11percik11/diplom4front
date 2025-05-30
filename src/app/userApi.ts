@@ -11,7 +11,7 @@ export const userApi = api.injectEndpoints({
           // credentials: 'include',
         }),
       }),
-      register: builder.mutation<{ email: string; password: string; name: string },{ email: string; password: string; name: string }>({
+      register: builder.mutation<{ email: string; password: string; name: string, phone: string },{ email: string; password: string; name: string, phone: string }>({
         query: (userData) => ({
           url: "/register",
           method: "POST",

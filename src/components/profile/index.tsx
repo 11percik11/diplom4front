@@ -10,6 +10,14 @@ import { FaPen } from "react-icons/fa"
 import { FiLogOut } from "react-icons/fi"
 import { useDispatch } from "react-redux"
 import { logout } from "../userSlice"
+import {
+  FiShoppingCart,
+  FiBox,
+  FiPackage,
+  FiUsers,
+  FiEdit3,
+} from "react-icons/fi"
+import hj from '../../foto/d29b8316-2ec3-4e57-8973-2fb5fd05c0a1.png';
 
 const Profile = () => {
   const navigate = useNavigate()
@@ -44,6 +52,10 @@ const Profile = () => {
     navigate("/cart")
   }
 
+  const hadleRegister = () => {
+    navigate("/auther")
+  }
+
   // const LogOut = () => {
   //   localStorage.removeItem("token")
   //   localStorage.removeItem("dataUser")
@@ -53,7 +65,8 @@ const Profile = () => {
   const hadleLogout = () => {
     dispatch(logout())
     localStorage.removeItem("token")
-    navigate("/auther")
+    localStorage.removeItem("dataUser")
+    navigate("/")
   }
 
   return (
@@ -61,36 +74,73 @@ const Profile = () => {
       <div className={styles.container}>
         <div className={styles.section}>
           <div className={styles.sectionBox}>
+            <div className={styles.dsf}>
+              {
+                !isError &&
+              <div className={styles.faPen}>
+                <FaPen className={styles.pen} onClick={openModal} />
+              </div> || <div></div>
+              }
+              <div className={styles.CiSettings}>
+                <FiLogOut className={styles.CiSettingsSvg} />
+                {!isError && <div onClick={hadleLogout} className={styles.SvgMarg}>Выход</div>}
+                {isError && <div onClick={hadleRegister} className={styles.SvgMarg}>Войти/Регистрация</div>}
+              </div>
+            </div>
             <div className={styles.imageContainer}>
-              <img src={`${BASE_URL}${finalData?.avatarUrl}`} alt="Product" />
+              <img src={finalData?.avatarUrl ? `${BASE_URL}${finalData?.avatarUrl}` : hj} alt="Product" />
             </div>
             <div className={styles.details}>
+              {isError && <div>Гость</div>}
               <p>{finalData?.name}</p>
               <p>{finalData?.email}</p>
               <p>{finalData?.phone}</p>
             </div>
-            <div>
-              <FaPen className={styles.pen} onClick={openModal} />
-            </div>
           </div>
           <hr />
-          <div>
-            <div className={styles.CiSettings} onClick={hadleLogout}>
-              <FiLogOut className={styles.CiSettingsSvg} />
-              <div className={styles.SvgMarg}>Log Out</div>
-            </div>
-          </div>
-        <div className={styles.buttonGroup}>
-          <button onClick={Cart}>Корзина товара</button>
-          {(dataUser.role === "ADMIN" || dataUser.role === "MANAGER") && (
-            <button onClick={myProduct}>Мой товар</button>
-          )}
-          {(dataUser.role === "ADMIN") && (
-            <button onClick={() => navigate('/adminpanel')}>Админ панель</button>
-          )}
-        </div>
-        </div>
 
+          <div className={styles.buttonGroup}>
+            <button className={styles.button} onClick={Cart}>
+              <FiShoppingCart className={styles.iconLeft} />
+              Корзина товара
+            </button>
+
+            <button
+              className={styles.button}
+              onClick={() => navigate("/orders")}
+            >
+              <FiBox className={styles.iconLeft} />
+              Мои заказы
+            </button>
+
+            {(dataUser.role === "ADMIN" || dataUser.role === "MANAGER") && (
+              <button className={styles.button} onClick={myProduct}>
+                <FiPackage className={styles.iconLeft} />
+                Мой товар
+              </button>
+            )}
+
+            {(dataUser.role === "ADMIN" || dataUser.role === "MANAGER") && (
+              <button
+                className={styles.button}
+                onClick={() => navigate("/commentvisable")}
+              >
+                <FiEdit3 className={styles.iconLeft} />
+                Проверка комментариев
+              </button>
+            )}
+
+            {dataUser.role === "ADMIN" && (
+              <button
+                className={styles.button}
+                onClick={() => navigate("/adminpanel")}
+              >
+                <FiUsers className={styles.iconLeft} />
+                Админ панель
+              </button>
+            )}
+          </div>
+        </div>
       </div>
       {isModalOpen && (
         <EditProfileModal

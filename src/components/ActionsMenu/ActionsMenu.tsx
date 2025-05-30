@@ -41,8 +41,8 @@ export const ActionsMenu = ({
       </button>
       {isOpen && (
         <div className={styles.menu}>
-          {typeof onEdit === 'function' && <button onClick={onEdit}>Edit</button>}
-          <button onClick={onDelete}>Delete</button>
+          {typeof onEdit === 'function' && <button onClick={onEdit}>Редактировать</button>}
+          <button onClick={onDelete}>Удалить</button>
         </div>
       )}
     </div>

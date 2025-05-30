@@ -12,13 +12,18 @@ const EditUserModal: React.FC<EditUserModalProps> = ({ product, onClose }) => {
   const formRef = useRef<HTMLFormElement>(null)
   const [updateUserRole, { isLoading }] = useUpdateRoleMutation()
   const [fileName, setFileName] = useState("")
+  const [isActivated, setIsActivated] = useState(product.isActivated)
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!formRef.current) return
 
+    console.log(isActivated)
     const formData = new FormData(formRef.current)
     formData.append("id", product.id.toString())
+    formData.delete("isActivated"); // удалить старое значение, если есть
+    formData.append("isActivated", isActivated.toString());
     try {
       await updateUserRole({
         userData: formData,
@@ -61,6 +66,18 @@ const EditUserModal: React.FC<EditUserModalProps> = ({ product, onClose }) => {
               required
             />
           </div>
+          <div className={styles.formGroup}>
+            <label className={styles.label}>Аккаунт активирован?</label>
+            <select
+              name="isActivated"
+              className={styles.input}
+              value={isActivated ? "true" : "false"}
+              onChange={e => setIsActivated(e.target.value === "true")}
+            >
+              <option value="true">Да</option>
+              <option value="false">Нет</option>
+            </select>
+          </div>
 
           <div className={styles.formGroup}>
             <label className={styles.label}>Роль</label>
@@ -91,7 +108,7 @@ const EditUserModal: React.FC<EditUserModalProps> = ({ product, onClose }) => {
             <label className={styles.label}>Аватар</label>
             <div className={styles.fileInputWrapper}>
               <label className={styles.fileInputLabel}>
-                Choose File
+                Выберите файл
                 <input
                   type="file"
                   name="avatar"
@@ -101,7 +118,7 @@ const EditUserModal: React.FC<EditUserModalProps> = ({ product, onClose }) => {
                 />
               </label>
               <span className={styles.fileName}>
-                {fileName || "No file chosen"}
+                {fileName || "Нет файла"}
               </span>
             </div>
           </div>
@@ -113,7 +130,7 @@ const EditUserModal: React.FC<EditUserModalProps> = ({ product, onClose }) => {
               disabled={isLoading}
             >
               {isLoading ? (
-                <span className={styles.loadingText}>Saving...</span>
+                <span className={styles.loadingText}>Сохранение...</span>
               ) : (
                 "Сохранить изменения"
               )}

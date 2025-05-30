@@ -1,77 +1,84 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
-import styles from './Admin.module.css';
-import { useNavigate } from 'react-router-dom';
-import { useCreateAdminMutation } from '../../app/userApi';
-
+import { ChangeEvent, FormEvent, useState } from "react"
+import styles from "./Admin.module.css"
+import { useNavigate } from "react-router-dom"
+import { useCreateAdminMutation } from "../../app/userApi"
 
 interface FormData {
-  name: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-  adminpassword: string;
+  name: string
+  email: string
+  password: string
+  confirmPassword: string
+  adminpassword: string
 }
 
 export default function Admin() {
   const [formData, setFormData] = useState<FormData>({
-      name: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-      adminpassword: "",
-    });
-  
-    const [errors, setErrors] = useState({
-      email: "",
-      password: "",
-    });
-  
-    const navigate = useNavigate();
-    const [register] = useCreateAdminMutation();
-  
-    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-      const { name, value } = e.target;
-      setFormData({
-        ...formData,
-        [name]: value
-      });
-    };
-  
-    const validateEmail = (email: string) => {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      return emailRegex.test(email);
-    };
-  
-    const validatePassword = () => {
-      return formData.password === formData.confirmPassword;
-    };
-  
-    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-  
-      const emailValid = validateEmail(formData.email);
-      const passwordValid = validatePassword();
-  
-      if (!emailValid || !passwordValid) {
-        setErrors({
-          email: emailValid ? "" : "Некорректный email",
-          password: passwordValid ? "" : "Пароли не совпадают",
-        });
-        return;
-      }
-  
-      try {
-        await register(formData).unwrap();
-        navigate('/auther');
-      } catch (err) {
-        console.log(err);
-      }
-    };
-  
-    const handleLogin = () => {
-      navigate('/auther');
-    };
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    adminpassword: "",
+  })
 
+  const [errors, setErrors] = useState({
+    email: "",
+    password: "",
+  })
+
+  const navigate = useNavigate()
+  const [register] = useCreateAdminMutation()
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
+    setFormData({
+      ...formData,
+      [name]: value,
+    })
+  }
+
+
+  const validateEmail = (email: string) => {
+  const emailRegex =
+    /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+  return emailRegex.test(email)
+}
+
+  const validatePassword = () => {
+    return (
+      formData.password === formData.confirmPassword &&
+      formData.password.length >= 8
+    )
+  }
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    const emailValid = validateEmail(formData.email)
+    const passwordValid = validatePassword()
+
+    if (!emailValid || !passwordValid) {
+      setErrors({
+        email: emailValid ? "" : "Некорректный email",
+        password: !passwordValid
+          ? formData.password !== formData.confirmPassword
+            ? "Пароли не совпадают"
+            : "Пароль должен быть не менее 8 символов"
+          : "",
+      })
+      return
+    }
+
+    try {
+      await register(formData).unwrap()
+      navigate("/auther")
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  const handleLogin = () => {
+    navigate("/auther")
+  }
 
   return (
     <div className={styles.formWrapper}>
@@ -122,10 +129,12 @@ export default function Admin() {
               onChange={handleChange}
               required
             />
-            {errors.password && <div className={styles.error}>{errors.password}</div>}
+            {errors.password && (
+              <div className={styles.error}>{errors.password}</div>
+            )}
           </div>
           <div className={styles.formGroup}>
-            <label htmlFor="adminpassword">Имя</label>
+            <label htmlFor="adminpassword">Секретный пароль</label>
             <input
               type="text"
               id="adminpassword"
@@ -136,10 +145,18 @@ export default function Admin() {
             />
           </div>
           <div className={styles.formGroup}>
-            <button type="submit">Зарегистрироваться</button>
+            <button className={styles.submitButton} type="submit">
+              Зарегистрироваться
+            </button>
           </div>
         </form>
-        <button type="button" className={styles.buttonAlt} onClick={handleLogin}>Войти</button>
+        <button
+          type="button"
+          className={styles.buttonAlt}
+          onClick={handleLogin}
+        >
+          Войти
+        </button>
       </div>
     </div>
   )

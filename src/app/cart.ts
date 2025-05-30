@@ -1,8 +1,8 @@
-import { Cart} from "./types"; // Предполагается, что Cart и CartItem определены в types.ts
-import { api } from "./api"; // Импортируем основной экземпляр API
+import { Cart } from "./types" // Предполагается, что Cart и CartItem определены в types.ts
+import { api } from "./api" // Импортируем основной экземпляр API
 
 export const cartApi = api.injectEndpoints({
-  endpoints: (builder) => ({
+  endpoints: builder => ({
     // Получение корзины пользователя
     getCart: builder.query<Cart, void>({
       query: () => ({
@@ -10,10 +10,13 @@ export const cartApi = api.injectEndpoints({
         method: "GET",
       }),
     }),
-    
+
     // Добавление товара в корзину
-    addToCart: builder.mutation<Cart, { productId: string }>({
-      query: (data) => ({
+    addToCart: builder.mutation<
+      Cart,
+      { productId: string; variantId: string; size: string; quantity?: number }
+    >({
+      query: data => ({
         url: "/cart",
         method: "PUT",
         body: data,
@@ -21,27 +24,34 @@ export const cartApi = api.injectEndpoints({
     }),
 
     // Удаление товара из корзины
-    removeFromCart: builder.mutation<Cart, { productId: string }>({
-      query: (data) => ({
+    removeFromCart: builder.mutation<void, { itemId: string }>({
+      query: ({ itemId }) => ({
         url: "/cart",
         method: "DELETE",
-        body: data,
+        body: { itemId },
+      }),
+    }),
+    updateQuantity: builder.mutation<
+      void,
+      { itemId: string; action: "increment" | "decrement" }
+    >({
+      query: ({ itemId, action }) => ({
+        url: "/cart/update-quantity",
+        method: "PUT",
+        body: { itemId, action },
       }),
     }),
   }),
-});
+})
 
 export const {
   useGetCartQuery,
   useLazyGetCartQuery,
   useAddToCartMutation,
   useRemoveFromCartMutation,
-} = cartApi;
+  useUpdateQuantityMutation,
+} = cartApi
 
 export const {
-  endpoints: {
-    getCart,
-    addToCart,
-    removeFromCart,
-  },
-} = cartApi;
+  endpoints: { getCart, addToCart, removeFromCart, updateQuantity },
+} = cartApi

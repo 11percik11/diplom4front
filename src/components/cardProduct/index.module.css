@@ -1,106 +1,140 @@
-/* index.module.css */
-
-.productCard {
-  max-width: 220px;
-  border: 1px solid #2d3748;
-  border-radius: 10px;
-  padding: 1.2rem;
-  text-align: center;
-  background: #1a202c;
-  margin: 1rem;
-  flex: 1 0 21%;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+.card {
+  width: 100%;
+  max-width: 280px;
+  background-color: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.productCard:hover {
+.card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  transform: scale(1.1);
 }
 
-.productCard .imageContainer {
+.imageBox {
   width: 100%;
-  height: 160px;
+  aspect-ratio: 1 / 1;
+  background-color: #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
-  border-radius: 6px;
-  margin-bottom: 1rem;
-  border: 1px solid #2d3748;
-  background: #2d3748;
+  cursor: pointer;
 }
 
-.productCard img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.productImage {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
   transition: transform 0.3s ease;
 }
 
-.productCard:hover img {
-  transform: scale(1.03);
+.imageBox:hover .productImage {
+  transform: scale(1.06);
 }
 
-.productCard .price {
-  font-size: 1.4rem;
-  color: #ffffff;
-  font-weight: 600;
-  margin: 0.5rem 0;
-}
-
-.productCard button {
-  background-color: #3182ce;
-  color: white;
+.titleButton {
+  background: none;
   border: none;
-  padding: 0.6rem 1.2rem;
-  border-radius: 6px;
+  padding: 0.75rem 1rem 0.25rem;
+  text-align: left;
   cursor: pointer;
-  font-weight: 500;
-  width: 100%;
-  margin-top: 0.8rem;
-  transition: background-color 0.2s ease;
 }
 
-.productCard button:hover {
-  background-color: #2b6cb0;
-}
-
-.h3 {
-  color: #ffffff;
+.title {
   font-size: 1.1rem;
-  margin: 0.5rem 0;
+  font-weight: 600;
+  color: #1a202c;
+  margin: 0;
+  transition: color 0.2s ease;
+  line-height: 1.3;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  transition: color 0.2s ease;
 }
 
-.h3:hover {
-  color: #63b3ed;
+.title:hover {
+  /* background: #535456; */
 }
 
-.divP2 {
-  color: #a0aec0;
-  font-size: 0.9rem;
-  line-height: 1.4;
-  height: 40px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  white-space: normal;
-  margin: 0.5rem 0;
+.titleButton:hover {
+  background: #cecccc;
+  transition: 0.7s;
 }
 
-.boxIntormation {
+.details {
+  padding: 0 1rem 1rem;
+  flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  gap: 0.5rem;
 }
 
-.price {
-  text-decoration: underline
+.priceText {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1a202c;
 }
 
-.imageContainer {
+.description {
+  font-size: 0.9rem;
+  color: #475569;
+  line-height: 1.4;
+  max-height: 3.6rem;
+  overflow-y: auto;
+  padding-right: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: #e2e8f0 transparent;
+}
+
+.description::-webkit-scrollbar {
+  width: 6px;
+}
+.description::-webkit-scrollbar-thumb {
+  background: #cbd5e0;
+  border-radius: 4px;
+}
+
+.cartButton {
+  background-color: #535456;
+  color: #fff;
+  font-size: 0.95rem;
+  height: 50px;
+  font-weight: 600;
+  border: none;
+  border-radius: 0px 0px;
   cursor: pointer;
+  transition: background-color 0.25s ease;
+}
+
+.cartButton:hover {
+  /* background-color: #afbacf; */
+}
+
+.cartButton {
+  background-color: #2d3748;
+  color: white;
+  padding: 10px 16px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cartButton:hover {
+  background-color: #1a202c;
+}
+
+.cartButton:disabled {
+  /* cursor: not-allowed; */
+}
+
+.cartButton.added {
+  background-color: #38a169; /* зелёный */
 }

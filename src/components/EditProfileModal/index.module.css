@@ -1,46 +1,90 @@
 .modalOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  animation: fadeIn 0.3s ease;
+}
+
+.modalContent h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: #2d3748;
+  text-align: center;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.2rem;
+}
+
+.formGroup label {
+  font-size: 0.95rem;
+  color: #4a5568;
+  margin-bottom: 0.5rem;
+}
+
+.formGroup input[type="text"],
+.formGroup input[type="tel"],
+.formGroup input[type="file"] {
+  padding: 0.65rem 0.85rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #cbd5e0;
+  background-color: #fdfdfd;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.formGroup input:focus {
+  outline: none;
+  border-color: #3182ce;
+  box-shadow: 0 0 0 2px rgba(49, 130, 206, 0.2);
+}
+
+.buttonGroup {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.button {
+  flex: 1;
+  background-color: #3182ce;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.button:hover {
+  background-color: #2b6cb0;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
   }
-  
-  .modalContent {
-    background: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    width: 400px;
-    max-width: 100%;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  .formGroup {
-    margin-bottom: 15px;
-  }
-  
-  .formGroup label {
-    display: block;
-    margin-bottom: 5px;
-  }
-  
-  .formGroup input {
-    width: 100%;
-    padding: 8px;
-    box-sizing: border-box;
-  }
-  
-  .buttonGroup {
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .buttonGroup button {
-    padding: 10px 20px;
-    cursor: pointer;
-    margin: 0 5px;
-  }
-  
+}

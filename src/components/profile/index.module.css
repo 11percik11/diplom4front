@@ -1,115 +1,129 @@
-/* index.module.css */
-
 .container {
-    display: flex;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  min-height: auto;
+}
+
+.section {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 40px 30px;
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+}
+
+.imageContainer {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 20px auto;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #e0e0e0;
+  border: 2px solid #ccc;
+}
+
+.imageContainer img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.details p:nth-child(1) {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #333;
+  text-transform: uppercase;
+}
+
+.details p:nth-child(2),
+.details p:nth-child(3) {
+  font-size: 14px;
+  color: #666;
+  margin: 2px 0;
+}
+
+.pen {
+  /* position: absolute; */
+  cursor: pointer;
+  color: #555;
+}
+
+.pen:hover {
+  color: #000;
+}
+
+.CiSettings {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+  color: #d9534f;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.CiSettings:hover {
+  opacity: 0.8;
+}
+
+.buttonGroup {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.buttonGroup .button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 16px;
+  font-size: 15px;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  background-color: #5172a9;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.25s, transform 0.1s;
+}
+
+.buttonGroup .button:hover {
+  background-color: #1a2e55;
+  transform: translateY(-1px);
+}
+
+.buttonGroup .iconLeft {
+  font-size: 18px;
+}
+
+
+.faPen {
+  /* position: relative; обязательно! */
+  /* width: fit-content; */
+  /* margin-left: auto; */
+  /* margin-bottom: 12px; */
+}
+
+.pen {
+  font-size: 18px;
+  cursor: pointer;
+  color: #4a5568;
+  transition: color 0.2s ease;
+}
+
+.pen:hover {
+  color: #1a202c;
+}
+
+.dsf {
+      display: flex;
     align-items: center;
-    padding: 20px 20px;
-    background-color: #f5f5f5;
-
-  }
-  
-  .section {
-    width: 100%;
-    background-color: #ffffff;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 20px;
-    width: 400px;
-    height: 400px; 
-  }
-
-  .sectionBox{
-    display: flex;
     justify-content: space-between;
-  }
-  
-  .imageContainer {
-    display: flex;
-    justify-content: center;
-    /* align-items: center; */
-    /* width: 450px; */
-    height: 150px;
-    max-height: 100px;
-    border: 1px solid #ccc;
-    border-radius: 50%;
-    overflow: hidden;
-    background-color: #eee;
-  }
-  
-  .imageContainer img {
-    max-width: 100%;
-    max-height: 100%;
-  }
-  
-  .details {
-    flex-grow: 1;
-    /* display: flex;
-    flex-direction: column;
-    justify-content: space-between; */
-    padding: 0 20px;
-  }
-  
-  .details p {
-    margin: 5px 0;
-  }
-  
-  .inputFail {
-    margin-top: 10px;
-  }
-  
-  .buttons {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-  
-  .buttonGroup {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 20px;
-  }
-  
-  .buttonGroup button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    background-color: #007bff;
-    color: #fff;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .buttonGroup button:hover {
-    background-color: #0056b3;
-  }
-
-  .pen {
-    cursor: pointer;
-  }
-
-  .CiSettings {
-    display: flex;
-    cursor: pointer;
-    background-color: #eee8e8;
-    margin: 10px 0;
-    padding: 5px;
-  }
-
-  .CiSettings:hover {
-    background-color: #c2c4c7;
-    transition: 0.4s;
-  }
-
-  .CiSettingsSvg {
-    height: 25px;
-    width: 25px;
-  }
-
-  .SvgMarg {
-    margin: 0 0 0 10px;
-  }
-
-  .pen:hover {
-    color: #151865
-  }
-  
+}

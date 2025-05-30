@@ -58,8 +58,8 @@ const EditProfileModal = ({ data, onClose, onProfileUpdated  }: any) => {
                         <input type="file" name="file" onChange={handleFileChange} required/>
                     </div>
                     <div className={styles.buttonGroup}>
-                        <button type="submit" onClick={handleSubmit}>Сохранить</button>
-                        <button type="button" onClick={onClose}>Отмена</button>
+                        <button className={styles.button} type="submit" onClick={handleSubmit}>Сохранить</button>
+                        <button className={styles.button} type="button" onClick={onClose}>Отмена</button>
                     </div>
                 </form>
             </div>

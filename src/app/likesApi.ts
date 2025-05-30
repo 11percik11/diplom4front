@@ -3,32 +3,36 @@ import { api } from "./api"
 
 export const likesApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    likeProduct: builder.mutation<Like, { productId: string }>({
+    rateProduct: builder.mutation<Like, { productId: string; rating: number }>({
       query: (body) => ({
-        url: "/likes",
+        url: "/likes/rate",      // новый endpoint на сервере
         method: "POST",
         body,
       }),
     }),
-    unlikeProduct: builder.mutation<void, { id: string }>({
-      query: (productId) => ({
-        url: `/likes`,
+    deleteRating: builder.mutation<void, { productId: string }>({
+      query: (body) => ({
+        url: "/likes/deleteRating",  // новый endpoint для удаления рейтинга
         method: "DELETE",
-        body: productId
+        body,
       }),
     }),
     deletelikeProduct: builder.mutation<void, { id: string }>({
-      query: (productId) => ({
+      query: (body) => ({
         url: `/deletelikeProduct`,
         method: "DELETE",
-        body: productId
+        body,
       }),
     }),
   }),
 })
 
-export const { useLikeProductMutation, useUnlikeProductMutation, useDeletelikeProductMutation } = likesApi
+export const {
+  useRateProductMutation,
+  useDeleteRatingMutation,
+  useDeletelikeProductMutation,
+} = likesApi
 
 export const {
-  endpoints: { likeProduct, unlikeProduct, deletelikeProduct },
+  endpoints: { rateProduct, deleteRating, deletelikeProduct },
 } = likesApi

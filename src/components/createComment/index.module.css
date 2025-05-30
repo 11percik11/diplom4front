@@ -1,40 +1,64 @@
 .divformComment {
-  width: 20%; /* Измените этот процент, чтобы уменьшить форму */
-  margin: 0 auto; /* Центрирование формы */
-}
-
-.textarea {
-  width: 100%;
-  height: 40px; /* Уменьшена высота */
-  padding: 6px; /* Немного уменьшен отступ */
-  margin-bottom: 8px; /* Уменьшен нижний отступ */
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  resize: vertical;
-}
-
-.submitButton {
-  background-color: #008000;
-  color: white;
-  padding: 8px 16px; /* Уменьшен отступ */
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px; /* Уменьшен размер шрифта */
-}
-
-.submitButton:hover {
-  background-color: #005700;
-}
-
-.label {
-  margin-bottom: 6px; /* Уменьшен нижний отступ */
-  font-weight: bold;
+  margin-bottom: 2rem;
 }
 
 .commentForm {
   display: flex;
   flex-direction: column;
-  align-items: stretch;
-  gap: 10px; /* Добавлен промежуток между элементами формы */
+  gap: 1rem;
+  background-color: #f9fafb;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+}
+
+.label {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #2d3748;
+}
+
+.labelRed {
+  color: #d93025;
+}
+
+.textarea {
+  min-height: 100px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #cbd5e0;
+  resize: vertical;
+  background-color: #ffffff;
+  color: #2d3748;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.textarea:focus {
+  outline: none;
+  border-color: #3182ce;
+  box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.3);
+}
+
+.submitButton {
+  align-self: flex-end;
+  background-color: #3182ce;
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 0.65rem 1.25rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.submitButton:hover {
+  background-color: #2b6cb0;
+}
+
+.error {
+  color: #d93025;
+  font-size: 0.9rem;
+  margin-top: 6px;
 }

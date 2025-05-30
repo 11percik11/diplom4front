@@ -1,66 +1,119 @@
-/* index.module.css */
-
 .form {
-  max-width: 400px;
-  margin: 0 auto;
+  max-width: 720px;
+  margin: 2rem auto;
   padding: 2rem;
-  background: #ffffff;
+  background: #f0f0f0;
   border-radius: 12px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 16px rgba(117, 70, 70, 0.196);
+  /* display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.2rem; */
 }
 
-.form input[type="text"],
-.form input[type="number"],
-.form input[type="file"] {
+.h2 {
+  margin: 0;
+}
+
+.divDisplay {
   width: 100%;
-  padding: 0.8rem;
-  margin-bottom: 1.2rem;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  font-size: 1rem;
-  transition: border-color 0.3s ease;
+  display: flex;
+  gap: 20px;
 }
 
-.form input[type="text"]:focus,
-.form input[type="number"]:focus {
-  border-color: #4a90e2;
+.form label {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  font-size: 0.9rem;
+  color: #222;
+  font-weight: 500;
+  gap: 0.4rem;
+}
+
+.input,
+.textArea,
+select,
+.fileInput {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.65rem 0.9rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  background-color: #fff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input:focus,
+.textArea:focus,
+select:focus {
+  border-color: #5b9df9;
   outline: none;
-  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+  box-shadow: 0 0 0 2px rgba(91, 157, 249, 0.25);
 }
 
 .textArea {
-  width: 100%;
-  padding: 0.8rem;
-  margin-bottom: 1.2rem;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  font-size: 1rem;
-  min-height: 120px;
+  min-height: 100px;
   resize: vertical;
-  transition: border-color 0.3s ease;
+  grid-column: span 2;
 }
 
-.textArea:focus {
-  border-color: #4a90e2;
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg fill='gray' viewBox='0 0 24 24' width='24' height='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1rem;
+}
+
+.fileInputLabel {
+  grid-column: span 2;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #444;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.fileInput {
+  margin-top: 0.3rem;
+  padding: 0.4rem;
+}
+
+.priceInput {
+  position: relative;
+}
+
+.priceInput input {
+  padding-right: 2rem;
+}
+
+.priceInput::after {
+  content: "₽";
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #777;
+  font-size: 1rem;
 }
 
 .form button {
-  width: 100%;
-  padding: 0.8rem;
-  background-color: #4a90e2;
+  grid-column: span 2;
+  padding: 0.9rem 1.2rem;
+  background-color: #5b9df9;
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 6px;
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .form button:hover {
-  background-color: #3a7bc8;
+  background-color: #407fd9;
 }
 
 .form button:disabled {
@@ -69,31 +122,89 @@
 }
 
 .error {
+  grid-column: span 2;
   color: #e74c3c;
-  margin-top: 0.5rem;
   font-size: 0.9rem;
+  text-align: center;
 }
 
-.fileInputLabel {
+.boxButton {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+
+.sizesWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.sizesGroup {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.addSizeButton {
+  width: fit-content;
+  background-color: #5b9df9;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.addSizeButton:hover {
+  background-color: #407fd9;
+}
+
+.removeSizeButton {
+  background-color: transparent;
+  color: #d00;
+  font-size: 1.2rem;
+  border: none;
+  cursor: pointer;
+  padding: 0 6px;
+  line-height: 1;
+}
+
+.error {
+  font-size: 0.8rem;
+  color: #e74c3c;
+  margin-top: 4px;
   display: block;
-  margin-bottom: 1.2rem;
-  font-size: 0.9rem;
-  color: #555;
 }
 
-.fileInput {
-  margin-top: 0.5rem;
+
+
+
+
+
+@media (max-width: 600px) {
+  .form {
+    grid-template-columns: 1fr;
+    padding: 1.5rem;
+  }
+
+  .divDisplay {
+    flex-direction: column;
+  }
+
+  .textArea,
+  .fileInputLabel,
+  .form button,
+  .error {
+    grid-column: span 1;
+  }
 }
 
-.priceInput {
-  position: relative;
-}
 
-.priceInput::after {
-  content: "₽";
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #777;
+.errorInput {
+  border: 1px solid red;
 }

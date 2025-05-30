@@ -1,0 +1,198 @@
+/* .productCard {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  border: 1px solid #e2e2e2;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.imageWrapper {
+  flex: 0 0 100px;
+  margin-right: 20px;
+}
+
+.imgProduct {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+}
+
+.productDetails {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.productTitle {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+.productDescription {
+  font-size: 14px;
+  color: #666;
+}
+
+.price {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-top: 6px;
+}
+
+.boxPlus {
+  margin-top: 8px;
+  max-width: 160px;
+}
+
+.removeButton {
+  margin-top: 10px;
+  padding: 6px 12px;
+  font-size: 14px;
+  background-color: #ff4d4f;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.removeButton:hover {
+  background-color: #d9363e;
+}
+
+.checkboxPlus {
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+}
+
+.checkboxStyled {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+} */
+
+
+.card {
+  display: flex;
+  gap: 16px;
+  padding: 16px;
+  border-radius: 12px;
+  background-color: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  align-items: flex-start;
+  transition: 0.2s ease;
+}
+
+.left {
+  flex: 0 0 100px;
+}
+
+.image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid #eee;
+  cursor: pointer;
+}
+
+.center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.titleBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #222;
+  cursor: pointer;
+}
+
+.description {
+  font-size: 14px;
+  color: #666;
+}
+
+.size {
+  font-size: 14px;
+  color: #333;
+}
+
+.rightTop {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.price {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-top: 2px;
+}
+
+.iconButton {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #ff4d4f;
+  padding: 0;
+  margin-top: 1px;
+}
+
+.iconButton:hover {
+  color: #d9363e;
+}
+
+.checkboxWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 0;
+  margin-top: 1px;
+}
+
+.checkbox {
+  opacity: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.checkedIcon {
+  color: #4caf50;
+}
+
+.uncheckedIcon {
+  color: #ccc;
+}
+
+.controls {
+  margin-top: 12px;
+  width: 200px;
+}

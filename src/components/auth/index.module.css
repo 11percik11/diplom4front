@@ -1,67 +1,93 @@
 .formWrapper {
+  /* min-height: 100vh; */
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background-color: #f7f7f7;
+  /* background: #f5f7fa; */
+  /* padding: 2rem; */
 }
 
 .formContainer {
-  background: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 400px;
+  background: #ffffff;
+  padding: 2.5rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 400px;
 }
 
 .header {
   text-align: center;
-  margin-bottom: 20px;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 1.5rem;
 }
 
 .formGroup {
-  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.25rem;
 }
 
 .label {
-  display: block;
-  margin-bottom: 5px;
+  font-size: 0.95rem;
+  color: #4a5568;
+  margin-bottom: 0.5rem;
 }
 
 .input {
-  width: 100%;
-  padding: 8px;
-  box-sizing: border-box;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  padding: 0.65rem 0.85rem;
+  border-radius: 8px;
+  border: 1px solid #cbd5e0;
+  font-size: 1rem;
+  background-color: #fdfdfd;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #3182ce;
+  box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.3);
 }
 
 .button {
-  width: 100%;
-  padding: 10px;
-  background-color: green;
+  background-color: #3182ce;
   color: white;
+  padding: 0.75rem;
+  font-size: 1rem;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
 .button:hover {
-  background-color: darkgreen;
+  background-color: #2b6cb0;
 }
 
 .buttonAlt {
-  width: 100%;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  background-color: #007bff;
-  color: #fff;
-  font-size: 16px;
+  margin-top: 1rem;
+  background-color: transparent;
+  color: #3182ce;
+  border: 2px solid #3182ce;
+  padding: 0.7rem;
+  font-size: 1rem;
+  border-radius: 8px;
   cursor: pointer;
-  margin-top: 10px;
+  width: 100%;
+  transition: all 0.2s ease;
 }
 
 .buttonAlt:hover {
-  background-color: #0056b3;
+  background-color: #3182ce;
+  color: white;
+}
+
+
+.errorMessage {
+  text-align: center;
+  color: #e53e3e;
+  margin-top: 1rem;
+  font-size: 0.95rem;
 }

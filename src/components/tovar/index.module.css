@@ -1,191 +1,394 @@
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  background-color: #f5f5f5;
+.pageContainer {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 1rem;
 }
 
-.productSection {
+.productCard {
   display: flex;
-  justify-content: space-between;
-  width: 100%;
-  max-width: 1300px;
-  background-color: #ffffff;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 20px;
-  margin-bottom: 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.imageContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 30%;
-  height: 350px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  flex-direction: row;
+  gap: 2rem;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  background-color: #eee;
-  margin-right: 20px;
+  padding: 1rem;
 }
 
-.imageContainer img {
-  max-width: 100%;
-  max-height: 100%;
-}
-
-.productDetails {
+.imageBox {
   flex: 1;
-  margin-right: 20px;
-}
-
-.productTitle,
-.productDescription,
-.sellerLabel,
-.priceSection p {
-  margin: 10px;
-  font-size: 16px;
-}
-
-.sellerInfo {
   display: flex;
+  justify-content: center;
   align-items: center;
+  max-width: 300px;
 }
 
-.avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  margin-right: 10px;
-  object-fit: cover;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+.imageBox img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
 }
 
-.userName {
-  font-weight: bold;
-  font-size: 16px;
-}
-
-.priceSection {
+.detailsBox {
+  flex: 2;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  gap: 1rem;
 }
 
-.addToCartButton {
-  padding: 10px 20px;
+.headerRow {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.cartButton {
+  padding: 0.75rem 1.5rem;
+  background-color: #5b9df9;
+  color: white;
   border: none;
-  border-radius: 8px;
-  background-color: #007bff;
-  color: #fff;
+  border-radius: 6px;
+  font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-.addToCartButton:hover {
-  background-color: #0056b3;
+.cartButton:hover {
+  background-color: #407fd9;
+}
+
+.infoBlock p {
+  margin: 0.25rem 0;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.productTitle {
+  font-size: 1.5rem;
+  margin: 0;
+  color: #222;
+}
+
+.likeWrapper {
+  margin-top: auto;
+}
+
+.likeButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
 }
 
 .commentsSection {
-  width: 100%;
-  max-width: 1300px;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  max-height: 500px; /* Set a maximum height */
-  overflow-y: auto; /* Enable vertical scrolling if content exceeds max-height */
+  margin-top: 2rem;
 }
 
-.comment {
-  background-color: #fff;
-  padding: 15px;
-  margin-bottom: 15px;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+.commentCard {
+  background-color: #f9f9f9;
+  padding: 1rem;
+  border-radius: 6px;
+  margin-top: 1rem;
 }
 
 .commentHeader {
   display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-    justify-content: space-between;
+  justify-content: space-between;
+  align-items: center;
 }
 
-
-.userInfo {
+.commentUser {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.userName {
-  font-weight: bold;
-  font-size: 14px;
-  margin: 0;
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
-.commentText {
-  font-size: 14px;
-  line-height: 1.4;
-}
-
-.noComments {
-  text-align: center;
-  color: #888;
-  font-size: 14px;
-}
-
-.loading,
-.error {
-  text-align: center;
-  font-size: 18px;
-  color: #888;
-  margin: 20px 0;
-}
-
-.menuWrapper {
+.commentMenu {
   position: relative;
 }
 
-.menuIcon {
-  cursor: pointer;
-}
-
-.dropdownMenu {
+.dropdown {
   position: absolute;
+  top: 100%;
   right: 0;
-  top: 20px;
-  background-color: rgb(0, 0, 0);
+  background: white;
   border: 1px solid #ccc;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  padding: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   z-index: 10;
 }
 
-.dropdownMenu button {
+.dropdown button {
   display: block;
   width: 100%;
-  padding: 10px 15px;
   background: none;
   border: none;
+  padding: 0.5rem 1rem;
   text-align: left;
   cursor: pointer;
 }
 
-.dropdownMenu button:hover {
-  background-color: #6f6f6f;
+.commentEdit input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
 }
 
-.divBoxImgName {
+.commentEdit button {
+  padding: 0.5rem 1rem;
+  background-color: #5b9df9;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.commentText {
+  margin-top: 0.5rem;
+}
+
+.sizeList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.sizeItem {
+  padding: 6px 12px;
+  background-color: #f0f0f0;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sizeItem:hover {
+  background-color: #e0e0e0;
+}
+
+.selected {
+  background-color: #5b9df9;
+  color: white;
+  border-color: #3a7ee0;
+}
+
+.disabled {
+  background-color: #e0e0e0;
+  color: #999;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.imageBox {
+  position: relative;
   display: flex;
   align-items: center;
+  justify-content: center;
+  width: 400px;
+  height: 400px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.productImage {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.navButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.8);
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 0 12px;
+  z-index: 2;
+}
+
+.navButton:first-of-type {
+  left: 0;
+}
+
+.navButton:last-of-type {
+  right: 0;
+}
+
+.noImage {
+  padding: 40px;
+  color: #777;
+  font-style: italic;
+}
+
+
+
+
+@media (max-width: 768px) {
+  .productCard {
+    flex-direction: column;
+  }
+
+  .imageBox {
+    max-width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .detailsBox {
+    gap: 0.75rem;
+  }
+
+  .cartButton {
+    width: 100%;
+    text-align: center;
+  }
+
+  .commentHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .commentUser {
+    flex-direction: row;
+  }
+}
+
+
+.cartButton {
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.cartButton:active {
+  transform: scale(0.97);
+}
+
+.cartButton.added {
+  background-color: #4caf50; /* зелёный */
+  color: white;
+}
+
+.colorList {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.colorItem {
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: white;
+  cursor: pointer;
+}
+
+.selectedColor {
+  background-color: #333;
+  color: white;
+  border-color: #333;
+}
+
+
+.imageBox {
+  position: relative;
+  max-width: 600px;
+  aspect-ratio: 4 / 3;
+  margin: 0 auto;
+  background: #f9f9f9;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+}
+
+.productImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.productImage:hover {
+  transform: scale(1.02);
+}
+
+.navButtonLeft,
+.navButtonRight {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.6);
+  border: none;
+  font-size: 2.2rem;
+  color: #333;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  backdrop-filter: blur(6px);
+  transition: all 0.3s ease;
+}
+
+.navButtonLeft:hover,
+.navButtonRight:hover {
+  background: rgba(255, 255, 255, 0.85);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.navButtonLeft {
+  left: 12px;
+}
+
+.navButtonRight {
+  right: 12px;
+}
+
+.dots {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(100, 100, 100, 0.3);
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.activeDot {
+  background: rgba(20, 20, 20, 0.8);
+}
+
+.noImage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  height: 100%;
+  font-size: 1.2rem;
 }
