@@ -5,7 +5,7 @@ import {
   useGetCartQuery,
   useLazyGetCartQuery,
 } from "../../app/cart"
-import { BASE_URL } from "../../constants"
+import { BASE_URL, BASE_URLPay } from "../../constants"
 import {
   useCheckProductAvailabilityMutation,
   useCreateOrderMutation,
@@ -234,7 +234,7 @@ const CartPage = () => {
       if (data.confirmation && data.confirmation.confirmation_token) {
         const checkout = new (window as any).YooMoneyCheckoutWidget({
           confirmation_token: data.confirmation.confirmation_token,
-          return_url: "http://localhost:5173/payment-complete",
+          return_url: `${BASE_URLPay}/payment-complete`,
           onComplete: () => handleSuccessfulPayment(),
           error_callback: (error: any) => {
             console.error("Ошибка оплаты:", error)
