@@ -6,8 +6,9 @@ import {
 } from "../../app/orders"
 import styles from "./ManageOrdersPage.module.css"
 import { Order } from "../../app/types"
+import { BASE_URL } from "../../constants"
 
-const BASE_URL = import.meta.env.VITE_BASE_URL || "http://localhost:3000"
+// const BASE_URL = import.meta.env.VITE_BASE_URL || "http://localhost:3000"
 
 const ManageOrdersPage = () => {
   const { data: fetchedOrders, isLoading, isError } = useGetAllOrdersQuery()
