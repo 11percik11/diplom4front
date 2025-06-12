@@ -1,20 +1,20 @@
-import { useState } from "react";
+import { useState } from "react"
 import {
   useLazyGetCartQuery,
   useRemoveFromCartMutation,
   useUpdateQuantityMutation,
-} from "../../../../app/cart";
-import { BASE_URL } from "../../../../constants";
-import { MinusPlus } from "../../../PlusMinus";
-import styles from "./ProductCard.module.css";
-import { FiTrash2, FiCheckSquare } from "react-icons/fi";
-import { useNavigate } from "react-router-dom";
+} from "../../../../app/cart"
+import { BASE_URL } from "../../../../constants"
+import { MinusPlus } from "../../../PlusMinus"
+import styles from "./ProductCard.module.css"
+import { FiTrash2, FiCheckSquare } from "react-icons/fi"
+import { useNavigate } from "react-router-dom"
 
 interface ProductCardProps {
-  item: any;
-  checkedItems: { [key: string]: boolean };
-  onCheckboxChange: (itemId: string) => void;
-  isGuest?: boolean;
+  item: any
+  checkedItems: { [key: string]: boolean }
+  onCheckboxChange: (itemId: string) => void
+  isGuest?: boolean
 }
 
 export default function ProductCard({
@@ -23,81 +23,123 @@ export default function ProductCard({
   onCheckboxChange,
   isGuest = false,
 }: ProductCardProps) {
-  const [updateQuantity] = useUpdateQuantityMutation();
-  const [quantities, setQuantities] = useState<{ [key: string]: number }>({});
-  const [triggerCart] = useLazyGetCartQuery();
-  const [removeFromCart] = useRemoveFromCartMutation();
-  const navigate = useNavigate();
+  const [updateQuantity] = useUpdateQuantityMutation()
+  const [quantities, setQuantities] = useState<{ [key: string]: number }>({})
+  const [triggerCart] = useLazyGetCartQuery()
+  const [removeFromCart] = useRemoveFromCartMutation()
+  const navigate = useNavigate()
 
-  const product = isGuest ? item : item.product;
-  const id = isGuest ? item.productId : item.id;
+  const product = isGuest ? item : item.product
+  const id = isGuest ? item.productId : item.id
 
-  // Получение варианта товара по variantId
   const variant =
-    !isGuest && product.variants?.find((v: any) => v.id === item.variantId);
+    !isGuest && product.variants?.find((v: any) => v.id === item.variantId)
 
   const imageUrl =
     variant?.images?.[0]?.url ||
     product.images?.[0]?.url ||
     product.images?.[0] ||
-    "";
+    ""
+
+  // Определение максимальной скидки
+  const now = new Date()
+  const activeProductDiscounts =
+    product.discounts?.filter(
+      (d: any) => new Date(d.startsAt) <= now && new Date(d.endsAt) >= now,
+    ) || []
+
+  const activeVariantDiscounts =
+    variant?.discounts?.filter(
+      (d: any) => new Date(d.startsAt) <= now && new Date(d.endsAt) >= now,
+    ) || []
+
+  const allActiveDiscounts = [
+    ...activeProductDiscounts,
+    ...activeVariantDiscounts,
+  ]
+  const maxDiscount = allActiveDiscounts.reduce(
+    (max, d) => (d.percentage > max ? d.percentage : max),
+    0,
+  )
+const finalPrice = maxDiscount
+  ? Math.floor(product.price * (1 - maxDiscount / 100))
+  : product.price
+
 
   const handleQuantityChange = async (itemId: string, newCount: number) => {
     if (isGuest) {
-      const stored = localStorage.getItem("guest_cart");
-      if (!stored) return;
+      const stored = localStorage.getItem("guest_cart")
+      if (!stored) return
 
-      const parsed = JSON.parse(stored);
+      const parsed = JSON.parse(stored)
       const updated = parsed.map((entry: any) =>
         entry.productId === item.productId && entry.size === item.size
           ? { ...entry, quantity: newCount }
-          : entry
-      );
+          : entry,
+      )
 
-      localStorage.setItem("guest_cart", JSON.stringify(updated));
-      setQuantities(prev => ({ ...prev, [itemId]: newCount }));
-      return;
+      localStorage.setItem("guest_cart", JSON.stringify(updated))
+      setQuantities(prev => ({ ...prev, [itemId]: newCount }))
+      return
     }
 
-    const action = newCount > item.quantity ? "increment" : "decrement";
+    const action = newCount > item.quantity ? "increment" : "decrement"
 
     try {
-      await updateQuantity({ itemId, action }).unwrap();
-      setQuantities(prev => ({ ...prev, [itemId]: newCount }));
-      await triggerCart();
+      await updateQuantity({ itemId, action }).unwrap()
+      setQuantities(prev => ({ ...prev, [itemId]: newCount }))
+      await triggerCart()
     } catch (error) {
-      console.error("Ошибка обновления количества:", error);
+      console.error("Ошибка обновления количества:", error)
     }
-  };
+  }
 
   const handleRemoveFromCart = async (itemId: string) => {
     if (isGuest) {
-      const stored = localStorage.getItem("guest_cart");
-      if (!stored) return;
+      const stored = localStorage.getItem("guest_cart")
+      if (!stored) return
 
-      const parsed = JSON.parse(stored);
+      const parsed = JSON.parse(stored)
       const filtered = parsed.filter(
         (entry: any) =>
-          !(entry.productId === item.productId && entry.size === item.size)
-      );
-      localStorage.setItem("guest_cart", JSON.stringify(filtered));
-      window.location.reload();
-      return;
+          !(entry.productId === item.productId && entry.size === item.size),
+      )
+      localStorage.setItem("guest_cart", JSON.stringify(filtered))
+      window.location.reload()
+      return
     }
 
     try {
-      await removeFromCart({ itemId }).unwrap();
-      await triggerCart();
+      await removeFromCart({ itemId }).unwrap()
+      await triggerCart()
     } catch (error) {
-      console.error("Ошибка при удалении товара:", error);
+      console.error("Ошибка при удалении товара:", error)
     }
-  };
+  }
 
   return (
     <div className={styles.card}>
       <div className={styles.left}>
+        {!isGuest && (
+          <label className={styles.checkboxWrapper}>
+            <input
+              type="checkbox"
+              checked={checkedItems[id] || false}
+              onChange={() => onCheckboxChange(id)}
+              className={styles.checkbox}
+            />
+            <FiCheckSquare
+              size={24}
+              className={
+                checkedItems[id] ? styles.checkedIcon : styles.uncheckedIcon
+              }
+            />
+          </label>
+        )}
         <img
-          onClick={() => navigate(`/product/${product.id}?color=${variant?.color}`)}
+          // onClick={() =>
+          //   navigate(`/product/${product.id}?color=${variant?.color}`)
+          // }
           src={`${BASE_URL}${imageUrl}`}
           alt={product.title}
           className={styles.image}
@@ -108,7 +150,9 @@ export default function ProductCard({
         <div className={styles.header}>
           <div className={styles.titleBlock}>
             <div
-              onClick={() => navigate(`/product/${product.id}?color=${variant?.color}`)}
+              // onClick={() =>
+              //   navigate(`/product/${product.id}?color=${variant?.color}`)
+              // }
               className={styles.title}
             >
               {product.title}
@@ -121,7 +165,19 @@ export default function ProductCard({
           </div>
 
           <div className={styles.rightTop}>
-            <div className={styles.price}>{product.price} ₽</div>
+            <div className={styles.price}>
+              {maxDiscount > 0 ? (
+                <>
+                  <span className={styles.oldPrice}>{product.price} ₽</span>
+                  <span className={styles.discountedPrice}>{finalPrice} ₽</span>
+                  <span className={styles.discountPercent}>
+                    −{maxDiscount}%
+                  </span>
+                </>
+              ) : (
+                <>{product.price} ₽</>
+              )}
+            </div>
 
             <button
               onClick={() => handleRemoveFromCart(id)}
@@ -130,25 +186,6 @@ export default function ProductCard({
             >
               <FiTrash2 size={24} />
             </button>
-
-            {!isGuest && (
-              <label className={styles.checkboxWrapper}>
-                <input
-                  type="checkbox"
-                  checked={checkedItems[id] || false}
-                  onChange={() => onCheckboxChange(id)}
-                  className={styles.checkbox}
-                />
-                <FiCheckSquare
-                  size={24}
-                  className={
-                    checkedItems[id]
-                      ? styles.checkedIcon
-                      : styles.uncheckedIcon
-                  }
-                />
-              </label>
-            )}
           </div>
         </div>
 
@@ -160,5 +197,5 @@ export default function ProductCard({
         </div>
       </div>
     </div>
-  );
+  )
 }

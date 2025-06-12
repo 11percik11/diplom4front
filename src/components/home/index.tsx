@@ -11,6 +11,7 @@ const Home: React.FC = () => {
 
   const [filters, setFilters] = useState<Record<string, string>>({})
   const [category, setCategory] = useState("")
+  const [isMobileFilterOpen, setMobileFilterOpen] = useState(false)
 
   const debouncedFilters = useDebounce(
     {
@@ -29,24 +30,31 @@ const Home: React.FC = () => {
   }, [isSuccess, data, dispatch])
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-  ) => {
-    const { name, value } = e.target
+  e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+) => {
+  const { name, value } = e.target
 
-    setFilters(prev => {
-      const updated = {
-        ...prev,
-        [name]: value,
-      }
-
-      // ❗️Если пользователь вручную меняет sex или age — убираем активную категорию
-      if ((name === "sex" || name === "age") && category === prev[name]) {
-        setCategory("") // Сброс активной кнопки
-      }
-
-      return updated
-    })
+  // Проверка: если поле — цена или размер и значение < 0, игнорировать
+  if (
+    ["minPrice", "maxPrice", "minSize", "maxSize"].includes(name) &&
+    Number(value) < 0
+  ) {
+    return
   }
+
+  setFilters(prev => {
+    const updated = {
+      ...prev,
+      [name]: value,
+    }
+
+    if ((name === "sex" || name === "age") && category === prev[name]) {
+      setCategory("")
+    }
+
+    return updated
+  })
+}
 
   const handleClear = () => {
     setFilters({})
@@ -200,6 +208,35 @@ const Home: React.FC = () => {
                 {m}
               </option>
             ))}
+          </select>
+        </div>
+
+        <div className={styles.filterGroup}>
+          <label>Сезон:</label>
+          <select
+            name="season"
+            value={filters.season || ""}
+            onChange={handleChange}
+          >
+            <option value="">Любой</option>
+            <option value="SUMMER">Летний</option>
+            <option value="WINTER">Зимний</option>
+            <option value="ALL_SEASON">Всесезонный</option>
+          </select>
+        </div>
+
+        <div className={styles.filterGroup}>
+          <label>Сортировать:</label>
+          <select
+            name="sort"
+            value={filters.sort || ""}
+            onChange={handleChange}
+          >
+            <option value="">По умолчанию (новые)</option>
+            <option value="new">Новые сначала</option>
+            <option value="old">Старые сначала</option>
+            <option value="priceAsc">По цене: сначала дешёвые</option>
+            <option value="priceDesc">По цене: сначала дорогие</option>
           </select>
         </div>
 

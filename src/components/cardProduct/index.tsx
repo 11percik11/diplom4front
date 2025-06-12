@@ -8,13 +8,55 @@ const ProductCard = ({ product }: any) => {
   const [isAdded, setIsAdded] = React.useState(false);
 
   const goToProduct = () => {
-  const variantColor = product.variants?.[0]?.color
-  navigate(`/product/${product.id}?color=${encodeURIComponent(variantColor)}`)
-}
+    const variantColor = product.variants?.[0]?.color;
+    navigate(`/product/${product.id}?color=${encodeURIComponent(variantColor)}`);
+  };
 
-  // Берём первый вариант товара (если есть)
-  const firstVariant = product.variants?.[0];
-  const firstImage = firstVariant?.images?.[0]?.url;
+  const now = new Date();
+
+  // Найти отображаемый вариант
+  const displayedVariant =
+    product.variants?.find((v: any) => v.visible) || product.variants?.[0];
+
+  const firstImage = displayedVariant?.images?.[0]?.url;
+
+  // Получить все активные скидки товара
+  const productDiscounts = product.discounts?.filter(
+    (d: any) =>
+      new Date(d.startsAt) <= now && new Date(d.endsAt) >= now
+  ) || [];
+
+  // Получить все активные скидки варианта
+  const variantDiscounts = displayedVariant?.discounts?.filter(
+    (d: any) =>
+      new Date(d.startsAt) <= now && new Date(d.endsAt) >= now
+  ) || [];
+
+  // Объединить и выбрать наибольшую скидку
+  const allDiscounts = [...productDiscounts, ...variantDiscounts];
+  const bestDiscount = allDiscounts.reduce(
+    (max, d) => (d.percentage > max.percentage ? d : max),
+    { percentage: 0 }
+  );
+
+  const discountPercent = bestDiscount?.percentage || 0;
+  const hasDiscount = discountPercent > 0;
+
+  const discountedPrice = hasDiscount
+    ? Math.floor(product.price * (1 - discountPercent / 100))
+    : product.price;
+
+  const commentCount =
+    product.comments?.filter((comment: any) => comment.visible)?.length || 0;
+
+  const averageRating = React.useMemo(() => {
+    if (!product.likes?.length) return null;
+    const sum = product.likes.reduce(
+      (acc: number, like: any) => acc + like.rating,
+      0
+    );
+    return (sum / product.likes.length).toFixed(1);
+  }, [product.likes]);
 
   return (
     <div className={styles.card}>
@@ -28,6 +70,10 @@ const ProductCard = ({ product }: any) => {
         ) : (
           <div className={styles.noImage}>Нет изображения</div>
         )}
+
+        {hasDiscount && (
+          <div className={styles.discountBadge}>-{discountPercent}%</div>
+        )}
       </div>
 
       <div className={styles.titleButton} onClick={goToProduct}>
@@ -35,8 +81,23 @@ const ProductCard = ({ product }: any) => {
       </div>
 
       <div className={styles.details}>
-        <div className={styles.priceText}>{product.price} ₽</div>
+        <div className={styles.priceSection}>
+          {hasDiscount ? (
+            <>
+              <div className={styles.discountedPrice}>{discountedPrice} ₽</div>
+              <div className={styles.oldPrice}>{product.price} ₽</div>
+            </>
+          ) : (
+            <div className={styles.priceText}>{product.price} ₽</div>
+          )}
+        </div>
+
         <p className={styles.description}>{product.description}</p>
+
+        <div className={styles.meta}>
+          <span>💬 {commentCount}</span>
+          {averageRating !== null && <span>⭐ {averageRating}</span>}
+        </div>
       </div>
 
       <button

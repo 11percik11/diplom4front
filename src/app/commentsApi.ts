@@ -30,11 +30,11 @@ export const commentsApi = api.injectEndpoints({
       }),
     }),
     allComment: builder.mutation<Comment[], { productid: string }>({
-  query: ({ productid }) => ({
-    url: `/comments/${productid}`,
-    method: "GET",
-  }),
-}),
+      query: ({ productid }) => ({
+        url: `/comments/${productid}`,
+        method: "GET",
+      }),
+    }),
 
     moderateComment: builder.mutation<Comment, { id: string }>({
       query: ({ id }) => ({
@@ -42,10 +42,21 @@ export const commentsApi = api.injectEndpoints({
         method: "PUT",
       }),
     }),
-    pendingComments: builder.query<Comment[], void>({
-      query: () => ({
-        url: `/commentsvisable/pending`,
-        method: "GET",
+    pendingComments: builder.query<Comment[], { hidden?: boolean }>({
+  query: ({ hidden = false }) => ({
+    url: `/commentsvisable/pending?hidden=${hidden}`,
+    method: "GET",
+  }),
+}),
+
+    setCommentHidden: builder.mutation<
+      Comment,
+      { id: string; hidden: boolean }
+    >({
+      query: ({ id, hidden }) => ({
+        url: `/comments/${id}/hidden`,
+        method: "PATCH",
+        body: { hidden },
       }),
     }),
   }),
@@ -59,6 +70,7 @@ export const {
   useAllCommentMutation,
   useModerateCommentMutation,
   usePendingCommentsQuery,
+  useSetCommentHiddenMutation,
 } = commentsApi
 
 export const {
@@ -69,6 +81,7 @@ export const {
     updateComment,
     allComment,
     moderateComment,
-    pendingComments
+    pendingComments,
+    setCommentHidden,
   },
 } = commentsApi

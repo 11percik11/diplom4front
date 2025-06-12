@@ -392,3 +392,77 @@
   height: 100%;
   font-size: 1.2rem;
 }
+
+
+.discountSection {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+.oldPrice {
+  text-decoration: line-through;
+  color: #999;
+  font-size: 1rem;
+}
+
+.discountedPrice {
+  color: #d32f2f;
+  font-weight: bold;
+  font-size: 1.3rem;
+}
+
+.discountPercent {
+  background: #d32f2f;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.priceNormal {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-top: 8px;
+}
+
+
+.discountSection {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+.oldPrice {
+  text-decoration: line-through;
+  color: #999;
+  font-size: 1rem;
+}
+
+.discountedPrice {
+  color: #d32f2f;
+  font-weight: bold;
+  font-size: 1.3rem;
+}
+
+.discountPercent {
+  background: #d32f2f;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.priceNormal {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-top: 8px;
+}

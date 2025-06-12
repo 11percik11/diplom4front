@@ -3,7 +3,7 @@ import styles from "./index.module.css"
 import { useDeleteProductMutation } from "../../app/productApi"
 import { useLazyCurrentQuery } from "../../app/userApi"
 
-export const DeleteProduct = ({ data, onClose }: any) => {
+export const DeleteProduct = ({ data, onClose, refetch }: any) => {
   const [trigerdeleteProduct] = useDeleteProductMutation()
   const [triggerCurrentQuery] = useLazyCurrentQuery()
 
@@ -11,7 +11,8 @@ export const DeleteProduct = ({ data, onClose }: any) => {
     e.preventDefault()
     try {
       await trigerdeleteProduct(data.id).unwrap()
-      await triggerCurrentQuery()
+      // await triggerCurrentQuery()
+      refetch();
       onClose()
     } catch (error) {
       console.error("Failed to update product:", error)

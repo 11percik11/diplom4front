@@ -99,6 +99,10 @@ select {
   font-size: 1rem;
 }
 
+.addVariantButton {
+  margin-bottom: 20px;
+}
+
 .form button {
   grid-column: span 2;
   padding: 0.9rem 1.2rem;
@@ -207,4 +211,16 @@ select {
 
 .errorInput {
   border: 1px solid red;
+}
+
+.errorInput {
+  border: 1px solid red;
+  background-color: #fff0f0;
+}
+
+.error {
+  color: #d32f2f;
+  font-size: 12px;
+  margin-top: 4px;
+  display: block;
 }

@@ -18,6 +18,8 @@ import EmailConfirmationPage from "./components/Activeted/Activated"
 import VisableComment from "./components/VisableComment/VisableComment"
 import PaymentComplete from "./components/PaymentComplete/PaymentComplete"
 import OrdersPage from "./components/OrdersPage/OrdersPage"
+import ManageOrdersPage from "./components/OrderWork/OrderWork"
+import CreateDiscount from "./components/Discount/Discount"
 
 const container = document.getElementById("root")!
 const root = createRoot(container)
@@ -43,6 +45,11 @@ const router = createBrowserRouter([
         element: <MyProduct />,
       },
       {
+        path: "/discount",
+        element: <CreateDiscount />,
+      },
+      
+      {
         path: "/profile/:id",
         element: <ProfileId />,
       },
@@ -57,6 +64,10 @@ const router = createBrowserRouter([
       {
         path: "/commentvisable",
         element: <VisableComment />,
+      },
+      {
+        path: "/manage-orders",
+        element: <ManageOrdersPage />,
       },
       {
         path: "/orders",
@@ -85,13 +96,9 @@ const router = createBrowserRouter([
     element: <PaymentComplete />,
   },
 ])
+
 root.render(
   <Provider store={store}>
     <RouterProvider router={router} />
   </Provider>,
 )
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-// reportWebVitals();

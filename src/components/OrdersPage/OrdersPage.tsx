@@ -101,7 +101,7 @@ export default function OrdersPage() {
                   />
                   <div className={styles.itemDetails}>
                     <div className={styles.itemTitle}>{item.product.title}</div>
-                    <div>Цена: {item.product.price} ₽</div>
+                    <div>Цена: {item.productPrice} ₽</div>
                     <div>Количество: {item.quantity}</div>
                     <div>Размер: {item.size}</div>
                   </div>

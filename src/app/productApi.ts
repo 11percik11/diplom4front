@@ -66,6 +66,13 @@ export const productApi = api.injectEndpoints({
         // чтобы fetch сам выставил правильный boundary для multipart/form-data
       }),
     }),
+
+    getAllProductsForAdmin: builder.query<Product[], void>({
+      query: () => ({
+        url: "/productAll",
+        method: "GET",
+      }),
+    }),
   }),
 })
 
@@ -77,6 +84,8 @@ export const {
   useGetProductByIdQuery,
   useLazyGetAllProductQuery,
   useLazyGetProductByIdQuery,
+  useGetAllProductsForAdminQuery,
+  useLazyGetAllProductsForAdminQuery,
 } = productApi
 
 export const {
@@ -86,5 +95,6 @@ export const {
     getAllProduct,
     getProductById,
     updateProduct,
+    getAllProductsForAdmin,
   },
 } = productApi

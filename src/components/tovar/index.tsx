@@ -54,10 +54,43 @@ export const Tovar = () => {
   const images = variant?.images || []
   const sizes = variant?.sizes || []
 
-  useEffect(() => {
-    setSelectedSize(null) // сброс выбранного размера при смене варианта
-    setCurrentImageIndex(0) // и текущей картинки, если нужно
-  }, [selectedVariantIndex])
+  const now = new Date()
+  const activeProductDiscounts = (productData?.discounts || []).filter(d => {
+  const start = new Date(d.startsAt)
+  const end = new Date(d.endsAt)
+  return start <= now && now <= end
+})
+
+const activeVariantDiscounts = (variant?.discounts || []).filter(d => {
+  const start = new Date(d.startsAt)
+  const end = new Date(d.endsAt)
+  return start <= now && now <= end
+})
+
+// Объединяем и ищем наибольшую
+const bestDiscount = [...activeProductDiscounts, ...activeVariantDiscounts].reduce(
+  (max, curr) => (curr.percentage > (max?.percentage || 0) ? curr : max),
+  null as null | { percentage: number }
+)
+
+const discountedPrice = bestDiscount
+  ? Math.floor(productData.price * (1 - bestDiscount.percentage / 100))
+  : null
+
+useEffect(() => {
+  setCurrentImageIndex(0)
+
+  const availableSizes = sizes
+    .slice()
+    .sort((a, b) => Number(a.size) - Number(b.size))
+    .filter(s => s.quantity > 0)
+
+  if (availableSizes.length > 0) {
+    setSelectedSize(availableSizes[0].size)
+  } else {
+    setSelectedSize(null)
+  }
+}, [selectedVariantIndex, sizes])
 
   const handlePrev = () => {
     setCurrentImageIndex(prev => (prev === 0 ? images.length - 1 : prev - 1))
@@ -244,7 +277,9 @@ export const Tovar = () => {
             >
               {addedToCart
                 ? "Добавлено ✓"
-                : `В корзину — ${productData?.price} ₽`}
+                : discountedPrice !== null
+                  ? `В корзину — ${discountedPrice} ₽`
+                  : `В корзину — ${productData?.price} ₽`}
             </button>
           </div>
 
@@ -253,6 +288,20 @@ export const Tovar = () => {
             <p>
               <strong>Описание:</strong> {productData?.description}
             </p>
+
+            {bestDiscount ? (
+              <div className={styles.discountSection}>
+                <span className={styles.oldPrice}>{productData?.price} ₽</span>
+                <span className={styles.discountedPrice}>
+                  {discountedPrice} ₽
+                </span>
+                <span className={styles.discountPercent}>
+                  -{bestDiscount.percentage}%
+                </span>
+              </div>
+            ) : (
+              <p className={styles.priceNormal}>{productData?.price} ₽</p>
+            )}
             <div className={styles.colorSwitcher}>
               <strong>Цвет:</strong>
               <div className={styles.colorList}>

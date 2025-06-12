@@ -1,9 +1,16 @@
-import { usePendingCommentsQuery, useModerateCommentMutation } from '../../app/commentsApi';
+import {
+  usePendingCommentsQuery,
+  useModerateCommentMutation,
+  useSetCommentHiddenMutation,
+} from '../../app/commentsApi';
 import styles from './VisableComment.module.css';
+import { useState } from 'react';
 
 export default function VisableComment() {
-  const { data = [], isLoading, refetch } = usePendingCommentsQuery();
+  const [filterHidden, setFilterHidden] = useState(false);
+  const { data = [], isLoading, refetch } = usePendingCommentsQuery({ hidden: filterHidden });
   const [moderateComment] = useModerateCommentMutation();
+  const [setHidden] = useSetCommentHiddenMutation();
 
   const handleModerate = async (id: string) => {
     try {
@@ -14,11 +21,31 @@ export default function VisableComment() {
     }
   };
 
+  const handleSetHidden = async (id: string, hidden: boolean) => {
+    try {
+      await setHidden({ id, hidden }).unwrap();
+      await refetch();
+    } catch (error) {
+      console.error('Ошибка при обновлении hidden:', error);
+    }
+  };
+
   if (isLoading) return <div className={styles.loading}>Загрузка...</div>;
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.title}>Непроверенные комментарии</h2>
+      <h2 className={styles.title}>Комментарии на модерации</h2>
+
+      <div className={styles.filterControls}>
+        <label>Показать скрытые: </label>
+        <select
+          value={filterHidden ? 'true' : 'false'}
+          onChange={(e) => setFilterHidden(e.target.value === 'true')}
+        >
+          <option value="false">Нет</option>
+          <option value="true">Да</option>
+        </select>
+      </div>
 
       <div className={styles.table}>
         <div className={`${styles.row} ${styles.header}`}>
@@ -40,6 +67,21 @@ export default function VisableComment() {
               >
                 Одобрить
               </button>
+              {comment.hidden ? (
+                <button
+                  className={styles.showButton}
+                  onClick={() => handleSetHidden(comment.id, false)}
+                >
+                  Показать
+                </button>
+              ) : (
+                <button
+                  className={styles.rejectButton}
+                  onClick={() => handleSetHidden(comment.id, true)}
+                >
+                  Скрыть
+                </button>
+              )}
             </div>
           </div>
         ))}

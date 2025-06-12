@@ -87,6 +87,29 @@ export const orderApi = api.injectEndpoints({
         method: "GET",
       }),
     }),
+
+    updateOrderIsReady: builder.mutation<
+      Order,
+      { orderId: string; isReady: boolean }
+    >({
+      query: ({ orderId, isReady }) => ({
+        url: `/${orderId}/ready`,
+        method: "PATCH",
+        body: { isReady },
+      }),
+    }),
+
+    // Обновление isGivenToClient
+    updateOrderIsGivenToClient: builder.mutation<
+      Order,
+      { orderId: string; isGivenToClient: boolean }
+    >({
+      query: ({ orderId, isGivenToClient }) => ({
+        url: `/${orderId}/given`,
+        method: "PATCH",
+        body: { isGivenToClient },
+      }),
+    }),
   }),
 })
 
@@ -99,6 +122,8 @@ export const {
   useGetOrdersByUserIdQuery,
   useLazyGetMyOrdersQuery,
   useCheckProductAvailabilityMutation,
+  useUpdateOrderIsGivenToClientMutation,
+  useUpdateOrderIsReadyMutation,
 } = orderApi
 
 export const {

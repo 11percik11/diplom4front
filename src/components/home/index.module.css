@@ -1,240 +1,119 @@
-.sidebar {
-  width: 200px;
-  background: #f4f4f4;
-  padding: 1rem;
-  height: 100vh;
-  position: fixed;
-  left: 0;
-  top: 0;
-}
-
-.sidebar h2 {
-  margin-top: 0;
-}
-
-.loading {
-  text-align: center;
-}
-
-.sidebar ul {
-  list-style: none;
-  padding: 0;
-}
-
-.sidebar ul li {
-  margin: 1rem 0;
-}
-
-.sidebar ul li a {
-  text-decoration: none;
-  color: #333;
-}
-
-.productList {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1.3rem;
-}
-
-main {
-  margin-left: 200px;
-  padding: 1rem;
-  flex: 1;
-  display: flex;
-  flex-wrap: wrap;
-}
-
 .layout {
   display: flex;
-  justify-content: space-between;
-  gap: 2rem;
-  padding: 1rem;
-}
-
-.filterSidebar {
-  width: 260px;
-  flex-shrink: 0;
-  border-left: 1px solid #ddd;
-  padding-left: 1rem;
-}
-
-.filterGroup {
-  margin-bottom: 1rem;
-  display: flex;
-  flex-direction: column;
-}
-
-.clearBtn {
-  margin-top: 1rem;
-  padding: 0.5rem;
-  background: #f44336;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-
-.loading {
-  font-size: 18px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-
-
-
-
-
-
-.categoryTabs {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
   flex-wrap: wrap;
-}
-
-.tabButton {
-  padding: 8px 14px;
-  background-color: #f2f2f2;
-  border: 1px solid #ccc;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.tabButton:hover {
-  background-color: #e0e0e0;
-}
-
-.active {
-  background-color: #1976d2;
-  color: white;
-  border-color: #1976d2;
-}
-
-.categoryTabs {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
-  padding: 0 20px;
-}
-
-.tabButton {
-  padding: 8px 14px;
-  background-color: #f2f2f2;
-  border: 1px solid #ccc;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-size: 14px;
-}
-
-.tabButton:hover {
-  background-color: #e0e0e0;
-}
-
-.active {
-  background-color: #1976d2;
-  color: white;
-  border-color: #1976d2;
-}
-
-
-.layout {
-  display: flex;
-  gap: 20px;
-  padding: 20px;
+  gap: 24px;
+  padding: 24px;
+  box-sizing: border-box;
 }
 
 .mainContent {
   flex: 1;
+  min-width: 0;
+}
+
+.categoryTabs {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.tabButton {
+  padding: 8px 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: white;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.tabButton:hover {
+  background-color: #f0f0f0;
+}
+
+.active {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
 }
 
 .productList {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 20px;
+  gap: 16px;
+}
+
+.loading {
+  text-align: center;
+  font-size: 18px;
+  padding: 24px;
 }
 
 .filterSidebar {
   width: 280px;
   flex-shrink: 0;
-  padding: 20px;
-  border-left: 1px solid #ddd;
+  padding: 16px;
   background-color: #f9f9f9;
   border-radius: 8px;
-  height: fit-content;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .filterGroup {
-  margin-bottom: 20px;
   display: flex;
   flex-direction: column;
+  gap: 4px;
 }
 
 .filterGroup label {
-  margin-bottom: 5px;
   font-size: 14px;
-  color: #555;
+  font-weight: 500;
 }
 
 .filterGroup input,
 .filterGroup select {
-  padding: 8px;
+  padding: 6px 10px;
+  font-size: 14px;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 6px;
 }
 
 .clearBtn {
-  padding: 10px;
-  background-color: #f44336;
+  background-color: #dc3545;
   color: white;
   border: none;
-  border-radius: 4px;
+  padding: 10px;
+  border-radius: 6px;
   cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
 }
 
 .clearBtn:hover {
-  background-color: #d32f2f;
+  background-color: #c82333;
 }
 
-.loading {
-  font-size: 18px;
-  text-align: center;
-  padding: 30px 0;
-}
+/* Адаптив под мобильные устройства */
+@media (max-width: 768px) {
+  .layout {
+    flex-direction: column;
+    padding: 16px;
+  }
 
-.categoryTabs {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 24px;
-  padding: 0 12px;
-  flex-wrap: wrap;
-}
+  .filterSidebar {
+    width: 100%;
+    padding: 12px;
+  }
 
-.tabButton {
-  padding: 6px 18px;
-  font-size: 14px;
-  background-color: transparent;
-  color: #333;
-  border: 2px solid #ccc;
-  border-radius: 999px;
-  cursor: pointer;
-  transition: all 0.25s ease-in-out;
-  font-weight: 500;
-}
+  .productList {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  }
 
-.tabButton:hover {
-  border-color: #1976d2;
-  color: #1976d2;
-  background-color: #f0f8ff;
-}
-
-.active {
-  background-color: #1976d2;
-  color: #fff;
-  border-color: #1976d2;
+  .tabButton {
+    flex: 1 1 auto;
+    text-align: center;
+  }
 }

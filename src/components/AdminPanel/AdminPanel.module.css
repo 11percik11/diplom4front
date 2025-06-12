@@ -177,3 +177,126 @@
     padding: 8px;
   }
 }
+
+.filters {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.filters label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+}
+
+.filters select {
+  width: 130px;
+  margin-top: 0.3rem;
+  padding: 4px;
+  font-size: 14px;
+}
+
+
+.productSearchContainer {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+  align-items: center;
+}
+
+.primaryButton {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.clearButton {
+  background-color: #ccc;
+  color: #333;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.primaryButton:disabled,
+.clearButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.searchResult {
+  margin-bottom: 20px;
+  border: 1px solid #e1e1e1;
+  padding: 10px;
+  border-radius: 6px;
+  background-color: #f9f9f9;
+}
+
+.notFound {
+  margin-top: 10px;
+  color: #a94442;
+  background-color: #f2dede;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.modelEdit {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5); /* затемнение */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background-color: white;
+  padding: 24px 32px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+  max-width: 400px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.modal p {
+  margin-bottom: 20px;
+}
+
+.primaryButton {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  margin-right: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.primaryButton:hover {
+  background-color: #0056b3;
+}
+
+.clearButton {
+  background-color: #e0e0e0;
+  color: #333;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.clearButton:hover {
+  background-color: #cfcfcf;
+}

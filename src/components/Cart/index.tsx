@@ -5,7 +5,10 @@ import {
   useGetCartQuery,
   useLazyGetCartQuery,
 } from "../../app/cart"
-import { BASE_URL, BASE_URLPay } from "../../constants"
+import {
+  BASE_URL,
+  //  BASE_URLPay
+} from "../../constants"
 import {
   useCheckProductAvailabilityMutation,
   useCreateOrderMutation,
@@ -117,16 +120,38 @@ const CartPage = () => {
     }
   }, [])
 
-  useEffect(() => {
-    if (cart?.items) {
-      const totalValue = cart.items.reduce((sum, item) => {
-        return checkedItems[item.id]
-          ? sum + item.product.price * (quantities[item.id] || item.quantity)
-          : sum
-      }, 0)
-      setValue(totalValue)
-    }
-  }, [cart, checkedItems, quantities])
+useEffect(() => {
+  if (cart?.items) {
+    const totalValue = cart.items.reduce((sum, item) => {
+      if (!checkedItems[item.id]) return sum;
+
+      const quantity = quantities[item.id] || item.quantity;
+      const now = new Date();
+
+      const variantDiscounts =
+        item.product?.variants?.find(v => v.id === item.variantId)?.discounts || [];
+
+      const productDiscounts = item.product?.discounts || [];
+
+      const activeDiscounts = [...variantDiscounts, ...productDiscounts].filter(
+        d => new Date(d.startsAt) <= now && new Date(d.endsAt) >= now
+      );
+
+      const maxDiscount =
+        activeDiscounts.length > 0
+          ? Math.max(...activeDiscounts.map(d => d.percentage))
+          : 0;
+
+      // ✅ Округляем цену за единицу
+      const discountedUnitPrice = Math.floor(item.product.price * (1 - maxDiscount / 100));
+
+      // ✅ И только потом умножаем
+      return sum + discountedUnitPrice * quantity;
+    }, 0);
+
+    setValue(totalValue);
+  }
+}, [cart, checkedItems, quantities]);
 
   useEffect(() => {
     if (cart?.items && cart.items.length > 0) {
@@ -234,7 +259,7 @@ const CartPage = () => {
       if (data.confirmation && data.confirmation.confirmation_token) {
         const checkout = new (window as any).YooMoneyCheckoutWidget({
           confirmation_token: data.confirmation.confirmation_token,
-          return_url: `${BASE_URLPay}/payment-complete`,
+          return_url: `http://localhost:5173/payment-complete`,
           onComplete: () => handleSuccessfulPayment(),
           error_callback: (error: any) => {
             console.error("Ошибка оплаты:", error)
@@ -331,7 +356,7 @@ const CartPage = () => {
           <form className={styles.formContainer}>
             <div className={styles.CartPrice}>
               <div>Итого:</div>
-              <div>{value} ₽</div>
+              <div>{value.toLocaleString()} ₽</div>
             </div>
             <button
               type="button"
